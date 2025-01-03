@@ -30,7 +30,34 @@ const HallOfFame = () => {
                 acc[owner.owner].highestAveragePointsInSeason,
                 owner.highestAveragePointsInSeason
               ),
-              // Add other stats aggregation logic as needed
+              allTimeMostWinsInSeason: Math.max(
+                acc[owner.owner].allTimeMostWinsInSeason,
+                owner.allTimeMostWinsInSeason
+              ),
+              allTimeMostLossesInSeason: Math.max(
+                acc[owner.owner].allTimeMostLossesInSeason,
+                owner.allTimeMostLossesInSeason
+              ),
+              allTimeMostWinsTotal:
+                acc[owner.owner].allTimeMostWinsTotal +
+                owner.allTimeMostWinsTotal,
+              allTimeMostLossesTotal:
+                acc[owner.owner].allTimeMostLossesTotal +
+                owner.allTimeMostLossesTotal,
+              lastPlaceFinishes:
+                acc[owner.owner].lastPlaceFinishes + owner.lastPlaceFinishes,
+              leastPointsScoredInSeason: Math.min(
+                acc[owner.owner].leastPointsScoredInSeason,
+                owner.leastPointsScoredInSeason
+              ),
+              mostPointsScoredInSeason: Math.max(
+                acc[owner.owner].mostPointsScoredInSeason,
+                owner.mostPointsScoredInSeason
+              ),
+              allTimeAveragePointsScored:
+                (acc[owner.owner].allTimeTotalPointsScored +
+                  owner.allTimeTotalPointsScored) /
+                (acc[owner.owner].gamesPlayed + owner.gamesPlayed), // Assuming "gamesPlayed" exists in your data for the number of games each owner played
             };
           } else {
             acc[owner.owner] = owner;
@@ -38,12 +65,13 @@ const HallOfFame = () => {
           return acc;
         }, {});
 
-        setStats(Object.values(combinedStats)); // Set the combined stats data
+        // Set the combined stats data
+        setStats(Object.values(combinedStats));
         setLoading(false); // Set loading to false once data is ready
       })
       .catch((error) => {
         console.error("Error fetching allTimeData:", error);
-        setLoading(false);
+        setLoading(false); // Stop loading if an error occurs
       });
   }, []);
 
@@ -52,62 +80,124 @@ const HallOfFame = () => {
   }
 
   // Sorting the data for each statistic and getting the top record
+  const getTopStats = (statKey) => {
+    const sortedStats = [...stats].sort((a, b) => b[statKey] - a[statKey]);
+
+    // Find the highest value
+    const highestValue = sortedStats[0][statKey];
+
+    // Return all owners with the highest value (handling ties)
+    return sortedStats.filter((stat) => stat[statKey] === highestValue);
+  };
+
   const topStats = {
-    allTimeAveragePointsScored: stats.sort(
-      (a, b) => b.allTimeAveragePointsScored - a.allTimeAveragePointsScored
-    )[0],
-    allTimeMostLossesInSeason: stats.sort(
-      (a, b) => b.allTimeMostLossesInSeason - a.allTimeMostLossesInSeason
-    )[0],
-    allTimeMostLossesTotal: stats.sort(
-      (a, b) => b.allTimeMostLossesTotal - a.allTimeMostLossesTotal
-    )[0],
-    allTimeMostWins: stats.sort(
-      (a, b) => b.allTimeMostWins - a.allTimeMostWins
-    )[0],
-    allTimeMostWinsInSeason: stats.sort(
-      (a, b) => b.allTimeMostWinsInSeason - a.allTimeMostWinsInSeason
-    )[0],
-    allTimeMostWinsTotal: stats.sort(
-      (a, b) => b.allTimeMostWinsTotal - a.allTimeMostWinsTotal
-    )[0],
-    allTimeTotalPointsScored: stats.sort(
-      (a, b) => b.allTimeTotalPointsScored - a.allTimeTotalPointsScored
-    )[0],
-    allTimeTotalPointsScoredAgainst: stats.sort(
-      (a, b) =>
-        b.allTimeTotalPointsScoredAgainst - a.allTimeTotalPointsScoredAgainst
-    )[0],
-    firstPlaceFinishes: stats.sort(
-      (a, b) => b.firstPlaceFinishes - a.firstPlaceFinishes
-    )[0],
-    highestAveragePointsInSeason: stats.sort(
-      (a, b) => b.highestAveragePointsInSeason - a.highestAveragePointsInSeason
-    )[0],
+    firstPlaceFinishes: getTopStats("firstPlaceFinishes"),
+    allTimeMostWins: getTopStats("allTimeMostWins"),
+    allTimeMostWinsInSeason: getTopStats("allTimeMostWinsInSeason"),
+    allTimeTotalPointsScored: getTopStats("allTimeTotalPointsScored"),
+    mostPointsScoredInSeason: getTopStats("mostPointsScoredInSeason"),
+    allTimeAveragePointsScored: getTopStats("allTimeAveragePointsScored"),
+    highestAveragePointsInSeason: getTopStats("highestAveragePointsInSeason"),
+  };
+
+  const notGoodStats = {
+    lastPlaceFinishes: getTopStats("lastPlaceFinishes"),
+    leastPointsScoredInSeason: getTopStats("leastPointsScoredInSeason"),
+    allTimeMostLossesInSeason: getTopStats("allTimeMostLossesInSeason"),
+    allTimeMostLossesTotal: getTopStats("allTimeMostLossesTotal"),
+    allTimeTotalPointsScoredAgainst: getTopStats(
+      "allTimeTotalPointsScoredAgainst"
+    ),
+  };
+
+  // Custom mapping for stat display names
+  const statLabelMapping = {
+    allTimeAveragePointsScored: "Avg Points Scored (Season)",
+    allTimeMostLossesInSeason: "Most Losses (Season)",
+    allTimeMostLossesTotal: "Most Losses (AllTime)",
+    allTimeMostWins: "Most Wins (AllTime)",
+    allTimeMostWinsInSeason: "Most Wins (Season)",
+    allTimeTotalPointsScored: "Points Scored (AllTime)",
+    allTimeTotalPointsScoredAgainst: "Points Against (AllTime)",
+    firstPlaceFinishes: "Championships",
+    highestAveragePointsInSeason: "Average Points (Season)",
+    lastPlaceFinishes: "Last Place Finishes",
+    leastPointsScoredInSeason: "Least Points (Season)",
+    mostPointsScoredInSeason: "Most Points (Season)",
+  };
+
+  // Helper function to format numbers with commas
+  const formatNumber = (num) => {
+    return num.toLocaleString();
   };
 
   return (
     <div className="hof-container">
       <h1 className="text-center">Hall of Fame</h1>
 
-      {/* Top Records Section */}
-      <div className="top-records">
-        <h2>Top Records</h2>
+      {/* Records Section */}
+      <div className="records-section">
+        <h2>Hall of Fame Records</h2>
         <div className="card-row">
-          {/* Display the top record for each category */}
+          {/* Display all records with sorted top stats */}
           {Object.keys(topStats).map((statKey) => {
-            const stat = topStats[statKey];
-            const displayName = statKey
-              .replace(/([A-Z])/g, " $1")
-              .toLowerCase(); // Convert camelCase to a human-readable name
+            const owners = topStats[statKey];
+            const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
 
             return (
-              <div key={`${stat.owner}-${statKey}`} className="card">
-                <img src="/images/trophy.png" alt={stat.owner + "'s Team"} />
-                <h3>{stat.owner}</h3>
+              <div key={statKey} className="card">
+                <h3 className="stat-value">
+                  {formatNumber(owners[0][statKey])}
+                </h3>{" "}
+                {/* Display the stat value at the top */}
+                <h4>{displayName}</h4> {/* Display the stat name */}
                 <p>
-                  {displayName.replace(/^\w/, (c) => c.toUpperCase())}:{" "}
-                  {stat[statKey]}
+                  {owners.map((stat, index) => (
+                    <span key={index}>
+                      {stat.owner}
+                      {index < owners.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Not Good Stats Section */}
+      <div className="records-section">
+        <h2>Not Good Records</h2>
+        <div className="card-row">
+          {/* Display unwanted records */}
+          {Object.keys(notGoodStats).map((statKey) => {
+            const owners = notGoodStats[statKey];
+            const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
+
+            return (
+              <div
+                key={statKey}
+                className={`card ${
+                  displayName === "Least Points (Season)" ||
+                  displayName === "Most Losses (Season)" ||
+                  displayName === "Most Losses (AllTime)" ||
+                  displayName === "Points Against (AllTime)"
+                    ? "bad-stat"
+                    : ""
+                }`}
+              >
+                <h3 className="stat-value">
+                  {formatNumber(owners[0][statKey])}
+                </h3>{" "}
+                {/* Display the stat value at the top */}
+                <h4>{displayName}</h4> {/* Display the stat name */}
+                <p>
+                  {owners.map((stat, index) => (
+                    <span key={index}>
+                      {stat.owner}
+                      {index < owners.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
                 </p>
               </div>
             );

@@ -15,12 +15,17 @@ const NavBar = () => {
         </li>
         <li style={styles.navItem}>
           <Link href="/stats" style={styles.navLink}>
-            Stats
+            Seasons
           </Link>
         </li>
         <li style={styles.navItem}>
           <Link href="/rules" style={styles.navLink}>
             Rules
+          </Link>
+        </li>
+        <li style={styles.navItem}>
+          <Link href="/hof" style={styles.navLink}>
+            H.O.F.
           </Link>
         </li>
       </ul>

@@ -7,7 +7,7 @@ import { calculateAllTimeStats } from "../../utils/calculateAllTimeStats"; // Im
 
 const StatsPage = () => {
   const [selectedSeason, setSelectedSeason] = useState(2024);
-  const [stats, setStats] = useState(leagueData[2024]); // Set default to 2024
+  const [stats, setStats] = useState(leagueData[selectedSeason]); // Set default to 2024
   const [allTimeStats, setAllTimeStats] = useState([]);
   const [selectedOwner, setSelectedOwner] = useState("");
 
@@ -39,10 +39,20 @@ const StatsPage = () => {
 
   const topFinishers = stats.slice(0, 3); // Get the top 3 teams
 
+  // Helper function to find highest stats for the selected season
+  const findHighestStat = (statName) => {
+    return Math.max(...stats.map((stat) => stat[statName]));
+  };
+
+  const highestPointsFor = findHighestStat("pointsFor");
+  const highestPointsAgainst = findHighestStat("pointsAgainst");
+  const highestPointsPerGame = findHighestStat("pointsForPerGame");
+  const highestPointsDifference = findHighestStat("pointsDifference");
+
   return (
     <div className="p-4 bg-gray-900 text-white">
       <NavBar />
-      <h1 className="text-2xl font-semibold mb-4 text-center">
+      <h1 className="text-2xl font-semibold my-4 text-center">
         {selectedSeason} Season Stats
       </h1>
 
@@ -173,6 +183,7 @@ const StatsPage = () => {
       </div>
 
       {/* Display Selected Owner Stats */}
+      {/* Display Selected Owner Stats */}
       {selectedOwnerStats ? (
         <div className="flex flex-col items-center m-4 bg-gray-800 text-white p-6 rounded-lg shadow-lg w-80 mx-auto">
           <p className="text-xl font-semibold">{selectedOwnerStats.owner}</p>
@@ -182,23 +193,49 @@ const StatsPage = () => {
           </div>
           <div className="flex justify-between w-full mb-2">
             <p className="text-lg font-semibold">Record</p>
-            <p className="text-lg">{selectedOwnerStats.record}</p>
+            <p
+              className={`text-lg ${
+                selectedOwnerStats.wins === highestPointsFor
+                  ? "font-bold text-blue-500"
+                  : ""
+              }`}
+            >
+              {selectedOwnerStats.record}
+            </p>
           </div>
           <div className="flex justify-between w-full mb-2">
             <p className="text-lg font-semibold">Points For</p>
-            <p className="text-lg">
+            <p
+              className={`text-lg ${
+                selectedOwnerStats.pointsFor === highestPointsFor
+                  ? "font-bold text-blue-500"
+                  : ""
+              }`}
+            >
               {formatNumber(selectedOwnerStats.pointsFor)}
             </p>
           </div>
           <div className="flex justify-between w-full mb-2">
             <p className="text-lg font-semibold">Points Against</p>
-            <p className="text-lg">
+            <p
+              className={`text-lg ${
+                selectedOwnerStats.pointsAgainst === highestPointsAgainst
+                  ? "font-bold text-blue-500"
+                  : ""
+              }`}
+            >
               {formatNumber(selectedOwnerStats.pointsAgainst)}
             </p>
           </div>
           <div className="flex justify-between w-full mb-2">
             <p className="text-lg font-semibold">Points Per Game</p>
-            <p className="text-lg">
+            <p
+              className={`text-lg ${
+                selectedOwnerStats.pointsForPerGame === highestPointsPerGame
+                  ? "font-bold text-blue-500"
+                  : ""
+              }`}
+            >
               {selectedOwnerStats.pointsForPerGame.toFixed(2)}
             </p>
           </div>
@@ -206,6 +243,10 @@ const StatsPage = () => {
             <p className="text-lg font-semibold">Points Difference</p>
             <p
               className={`text-lg ${
+                selectedOwnerStats.pointsDifference === highestPointsDifference
+                  ? "font-bold text-blue-500"
+                  : ""
+              } ${
                 selectedOwnerStats.pointsDifference >= 0
                   ? "text-green-500"
                   : "text-red-500"
@@ -214,6 +255,11 @@ const StatsPage = () => {
               {selectedOwnerStats.pointsDifference.toFixed(2)}
             </p>
           </div>
+
+          {/* Note about Blue Font */}
+          <p className="text-xs text-center mt-4 text-blue-500">
+            *Blue font indicates the highest value in the league for that stat.
+          </p>
         </div>
       ) : (
         <div className="flex flex-col items-center m-4 bg-gray-800 text-white p-6 rounded-lg shadow-lg w-80 mx-auto">

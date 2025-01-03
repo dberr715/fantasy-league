@@ -126,6 +126,22 @@ const HallOfFame = () => {
     mostPointsScoredInSeason: "Most Points (Season)",
   };
 
+  // Static mapping for images for each stat
+  const statImageMapping = {
+    firstPlaceFinishes: "/images/champ.webp",
+    allTimeMostWins: "/images/allWins.webp",
+    allTimeMostWinsInSeason: "/images/seasonwins.webp",
+    allTimeTotalPointsScored: "/images/points-icon.png",
+    mostPointsScoredInSeason: "/images/most-points-icon.png",
+    allTimeAveragePointsScored: "/images/average-points-icon.png",
+    highestAveragePointsInSeason: "/images/highest-average-icon.png",
+    lastPlaceFinishes: "/images/last-place-icon.png",
+    leastPointsScoredInSeason: "/images/least-points-icon.png",
+    allTimeMostLossesInSeason: "/images/losses-icon.png",
+    allTimeMostLossesTotal: "/images/total-losses-icon.png",
+    allTimeTotalPointsScoredAgainst: "/images/points-against-icon.png",
+  };
+
   // Helper function to format numbers with commas
   const formatNumber = (num) => {
     return num.toLocaleString();
@@ -147,8 +163,9 @@ const HallOfFame = () => {
             return (
               <div key={statKey} className="card">
                 <div className="card-icon">
+                  {/* Use static image URL based on stat */}
                   <img
-                    src="/path/to/your/image.jpg" // Add the image path here
+                    src={statImageMapping[statKey]} // Get image URL from the mapping
                     alt={statKey}
                     className="card-img"
                   />
@@ -194,8 +211,9 @@ const HallOfFame = () => {
                 }`}
               >
                 <div className="card-icon">
+                  {/* Use static image URL based on stat */}
                   <img
-                    src="/path/to/your/image.jpg" // Add the image path here
+                    src={statImageMapping[statKey]} // Get image URL from the mapping
                     alt={statKey}
                     className="card-img"
                   />

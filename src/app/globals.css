@@ -20,47 +20,65 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Add to your CSS file */
-.card {
-  background-color: #3b82f6; /* Default color for the good stats */
-  color: #fff;
+.hof-container {
   padding: 20px;
-  border-radius: 10px;
+}
+
+h1.text-center {
+  font-size: 2.5rem;
   text-align: center;
-  margin: 10px;
-  width: 200px;
-  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
-.card.bad-stat {
-  background-color: #f87171; /* Red color for the "bad" stats */
-}
-
-.card h3.stat-value {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.card h4 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 0.9rem;
+.records-section {
+  margin-top: 20px;
 }
 
 .card-row {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
 }
 
-.records-section {
-  margin-bottom: 40px;
+.card {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
 }
 
-.text-center {
-  text-align: center;
-  margin-bottom: 20px;
+.card.bad-stat {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.card-icon {
+  margin-bottom: 10px;
+}
+
+.card-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin-top: 10px;
 }

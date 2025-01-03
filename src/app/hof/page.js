@@ -1,55 +1,54 @@
 "use client"; // Mark as a client-side component
 import React, { useState, useEffect } from "react";
-import { allTimeData } from "../data/allTimeData"; // Import all-time data
 
 const HallOfFame = () => {
   const [stats, setStats] = useState([]);
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    if (allTimeData && allTimeData.owners && allTimeData.owners.length > 0) {
-      setStats(allTimeData.owners); // Populate stats with owners data
-      setLoading(false); // Set loading to false when data is ready
-    }
-  }, [allTimeData]); // Dependency on allTimeData
+    // Fetch the static JSON data from the public folder
+    fetch("/allTimeData.json")
+      .then((response) => response.json())
+      .then((data) => {
+        // Combine stats for each owner (if there are duplicates)
+        const combinedStats = Object.values(data).reduce((acc, owner) => {
+          if (acc[owner.owner]) {
+            // Combine stats for the same owner
+            acc[owner.owner] = {
+              ...acc[owner.owner],
+              allTimeMostWins:
+                acc[owner.owner].allTimeMostWins + owner.allTimeMostWins,
+              allTimeTotalPointsScored:
+                acc[owner.owner].allTimeTotalPointsScored +
+                owner.allTimeTotalPointsScored,
+              allTimeTotalPointsScoredAgainst:
+                acc[owner.owner].allTimeTotalPointsScoredAgainst +
+                owner.allTimeTotalPointsScoredAgainst,
+              firstPlaceFinishes:
+                acc[owner.owner].firstPlaceFinishes + owner.firstPlaceFinishes,
+              highestAveragePointsInSeason: Math.max(
+                acc[owner.owner].highestAveragePointsInSeason,
+                owner.highestAveragePointsInSeason
+              ),
+              // Add other stats aggregation logic as needed
+            };
+          } else {
+            acc[owner.owner] = owner;
+          }
+          return acc;
+        }, {});
 
-  // Show loading message while data is still loading
-  if (loading || stats.length === 0) {
-    return (
-      <div className="hof-container">
-        <h1 className="text-center">Hall of Fame</h1>
+        setStats(Object.values(combinedStats)); // Set the combined stats data
+        setLoading(false); // Set loading to false once data is ready
+      })
+      .catch((error) => {
+        console.error("Error fetching allTimeData:", error);
+        setLoading(false);
+      });
+  }, []);
 
-        {/* Top Records Section with placeholders */}
-        <div className="top-records">
-          <h2>Top Records</h2>
-          <div className="card-row">
-            {/* Placeholder for each stat */}
-            {Array.from({ length: 10 }).map((_, index) => (
-              <div key={index} className="card placeholder-card">
-                <div className="image-placeholder"></div>
-                <h3>Loading...</h3>
-                <p>Loading...</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Unwanted Records Section with placeholders */}
-        <div className="unwanted-records">
-          <h2>Unwanted Records</h2>
-          <div className="card-row">
-            {/* Placeholder for unwanted records */}
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="card placeholder-card">
-                <div className="image-placeholder"></div>
-                <h3>Loading...</h3>
-                <p>Loading...</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+  if (loading) {
+    return <div>Loading data...</div>; // Show loading message while data loads
   }
 
   // Sorting the data for each statistic and getting the top record
@@ -85,15 +84,6 @@ const HallOfFame = () => {
     highestAveragePointsInSeason: stats.sort(
       (a, b) => b.highestAveragePointsInSeason - a.highestAveragePointsInSeason
     )[0],
-    lastPlaceFinishes: stats.sort(
-      (a, b) => b.lastPlaceFinishes - a.lastPlaceFinishes
-    )[0],
-    leastPointsScoredInSeason: stats.sort(
-      (a, b) => a.leastPointsScoredInSeason - b.leastPointsScoredInSeason
-    )[0],
-    mostPointsScoredInSeason: stats.sort(
-      (a, b) => b.mostPointsScoredInSeason - a.mostPointsScoredInSeason
-    )[0],
   };
 
   return (
@@ -104,7 +94,7 @@ const HallOfFame = () => {
       <div className="top-records">
         <h2>Top Records</h2>
         <div className="card-row">
-          {/* Display each stat as a card */}
+          {/* Display the top record for each category */}
           {Object.keys(topStats).map((statKey) => {
             const stat = topStats[statKey];
             const displayName = statKey
@@ -112,7 +102,7 @@ const HallOfFame = () => {
               .toLowerCase(); // Convert camelCase to a human-readable name
 
             return (
-              <div key={stat.owner} className="card">
+              <div key={`${stat.owner}-${statKey}`} className="card">
                 <img src="/images/trophy.png" alt={stat.owner + "'s Team"} />
                 <h3>{stat.owner}</h3>
                 <p>
@@ -122,38 +112,6 @@ const HallOfFame = () => {
               </div>
             );
           })}
-        </div>
-      </div>
-
-      {/* Unwanted Records Section */}
-      <div className="unwanted-records">
-        <h2>Unwanted Records</h2>
-        <div className="card-row">
-          {/* Display unwanted records */}
-          <div key={topStats.lastPlaceFinishes.owner} className="card">
-            <img src="/images/trophy.png" alt="Last Place Finishes" />
-            <h3>{topStats.lastPlaceFinishes.owner}</h3>
-            <p>
-              Most Last Place Finishes:{" "}
-              {topStats.lastPlaceFinishes.lastPlaceFinishes}
-            </p>
-          </div>
-          <div key={topStats.leastPointsScoredInSeason.owner} className="card">
-            <img src="/images/trophy.png" alt="Least Points Scored" />
-            <h3>{topStats.leastPointsScoredInSeason.owner}</h3>
-            <p>
-              Least Points Scored in a Season:{" "}
-              {topStats.leastPointsScoredInSeason.leastPointsScoredInSeason}
-            </p>
-          </div>
-          <div key={topStats.mostPointsScoredInSeason.owner} className="card">
-            <img src="/images/trophy.png" alt="Most Points Scored" />
-            <h3>{topStats.mostPointsScoredInSeason.owner}</h3>
-            <p>
-              Most Points Scored in a Season:{" "}
-              {topStats.mostPointsScoredInSeason.mostPointsScoredInSeason}
-            </p>
-          </div>
         </div>
       </div>
     </div>

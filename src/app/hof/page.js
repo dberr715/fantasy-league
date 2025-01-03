@@ -146,6 +146,13 @@ const HallOfFame = () => {
 
             return (
               <div key={statKey} className="card">
+                <div className="card-icon">
+                  <img
+                    src="/path/to/your/image.jpg" // Add the image path here
+                    alt={statKey}
+                    className="card-img"
+                  />
+                </div>
                 <h3 className="stat-value">
                   {formatNumber(owners[0][statKey])}
                 </h3>{" "}
@@ -186,6 +193,13 @@ const HallOfFame = () => {
                     : ""
                 }`}
               >
+                <div className="card-icon">
+                  <img
+                    src="/path/to/your/image.jpg" // Add the image path here
+                    alt={statKey}
+                    className="card-img"
+                  />
+                </div>
                 <h3 className="stat-value">
                   {formatNumber(owners[0][statKey])}
                 </h3>{" "}

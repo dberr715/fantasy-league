@@ -1,4 +1,5 @@
 "use client"; // Mark as a client-side component
+import NavBar from "@/components/NavBar";
 import React, { useState, useEffect } from "react";
 
 const HallOfFame = () => {
@@ -148,96 +149,53 @@ const HallOfFame = () => {
   };
 
   return (
-    <div className="hof-container">
-      <h1 className="text-center">Hall of Fame</h1>
+    <div>
+      <NavBar /> {/* NavBar at the top */}
+      <div className="hof-container">
+        <h1 className="text-center">Hall of Fame</h1>
 
-      {/* Records Section */}
-      <div className="records-section">
-        <h2>Hall of Fame Records</h2>
-        <div className="card-row">
-          {/* Display all records with sorted top stats */}
-          {Object.keys(topStats).map((statKey) => {
-            const owners = topStats[statKey];
-            const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
+        {/* Combined Records Section (Good and Bad Stats) */}
+        <div className="records-section">
+          <div className="card-row">
+            {/* Display all records (good + bad) */}
+            {[...Object.keys(topStats), ...Object.keys(notGoodStats)].map(
+              (statKey) => {
+                const owners = topStats[statKey] || notGoodStats[statKey]; // Combine good and bad stats
+                const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
 
-            return (
-              <div key={statKey} className="card">
-                <div className="card-icon">
-                  {/* Use static image URL based on stat */}
-                  <img
-                    src={statImageMapping[statKey]} // Get image URL from the mapping
-                    alt={statKey}
-                    className="card-img"
-                  />
-                </div>
-                <h3 className="stat-value">
-                  {formatNumber(owners[0][statKey])}
-                </h3>{" "}
-                {/* Display the stat value at the top */}
-                <h4>{displayName}</h4> {/* Display the stat name */}
-                <p>
-                  {owners.map((stat, index) => (
-                    <span key={index}>
-                      {stat.owner}
-                      {index < owners.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Not Good Stats Section */}
-      <div className="records-section">
-        <h2>Not Good Records</h2>
-        <div className="card-row">
-          {/* Display unwanted records */}
-          {Object.keys(notGoodStats).map((statKey) => {
-            const owners = notGoodStats[statKey];
-            const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
-
-            return (
-              <div
-                key={statKey}
-                className={`card ${
-                  displayName === "Least Points (Season)" ||
-                  displayName === "Most Losses (Season)" ||
-                  displayName === "Most Losses (AllTime)" ||
-                  displayName === "Points Against (AllTime)"
-                    ? "bad-stat"
-                    : ""
-                }`}
-              >
-                <div className="card-icon">
-                  {/* Use static image URL based on stat */}
-                  <img
-                    src={statImageMapping[statKey]} // Get image URL from the mapping
-                    alt={statKey}
-                    className="card-img"
-                  />
-                </div>
-                <h3 className="stat-value">
-                  {formatNumber(owners[0][statKey])}
-                </h3>{" "}
-                {/* Display the stat value at the top */}
-                <h4>{displayName}</h4> {/* Display the stat name */}
-                <p>
-                  {owners.map((stat, index) => (
-                    <span key={index}>
-                      {stat.owner}
-                      {index < owners.length - 1 ? ", " : ""}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            );
-          })}
+                return (
+                  <div key={statKey} className="card">
+                    <div className="card-icon">
+                      {/* Use static image URL based on stat */}
+                      <img
+                        src={statImageMapping[statKey]} // Get image URL from the mapping
+                        alt={statKey}
+                        className="card-img"
+                      />
+                    </div>
+                    <h3 className="stat-value">
+                      {formatNumber(owners[0][statKey])}
+                    </h3>{" "}
+                    {/* Display the stat value at the top */}
+                    <h4>{displayName}</h4> {/* Display the stat name */}
+                    <p>
+                      {owners.map((stat, index) => (
+                        <span key={index}>
+                          {stat.owner}
+                          {index < owners.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                );
+              }
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
+
 };
 
 export default HallOfFame;

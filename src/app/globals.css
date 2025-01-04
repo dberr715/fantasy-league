@@ -16,69 +16,106 @@
 
 body {
   color: black;
-  background: var(--background);
+  background: rgba(0, 0, 0, 0.131);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Hall of Fame Header */
+.halloffame {
+  font-family: 'Anton', sans-serif; /* Football-themed font */
+  color: transparent; /* Set color to transparent to apply the 3D effect */
+  text-align: center;
+  padding: 80px 0; /* Adjust padding for better spacing */
+  font-size: 4rem; /* Large font size for emphasis */
+  margin-bottom: 50px;
+  letter-spacing: 5px; /* Add some letter spacing for better separation */
+  text-transform: uppercase; /* Ensure the text is capitalized */
+  background: linear-gradient(45deg, #ffb338, #3e2904); /* Gold gradient background */
+  -webkit-background-clip: text; /* Clip the background to the text */
+  background-clip: text; /* Standard for all browsers */
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6), 0px 0px 10px rgba(255, 183, 56, 0.7); /* Add 3D shadow effect */
+}
+
+.halloffame .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: gray; /* Optional background image */
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+
+.halloffame .fg {
+  z-index: 1;
+}
+
+/* Container for Hall of Fame */
 .hof-container {
   padding: 20px;
 }
 
-h1.text-center {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.records-section {
-  margin-top: 20px;
-}
-
+/* Card Row styling */
 .card-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
   gap: 20px;
-  justify-content: center;
 }
 
+/* Card Styling */
 .card {
-  background-color: #007bff;
-  color: white;
+  position: relative;
+  width: 300px;
+  height: 300px;
   padding: 20px;
-  width: 400px;
+  border-radius: 10px;
+  color: white;
   text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-position: center;
+  background-clip: padding-box;
 }
 
-.card.bad-stat {
-  background-color: #f8d7da;
-  color: #721c24;
+/* Overlay for readability */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for better readability */
+  border-radius: 10px;
+  z-index: 1;
 }
 
-.card-icon {
-  margin-bottom: 10px;
-}
-
-.card-img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  margin: 0 auto;
-}
-
+/* Text inside the card */
 .stat-value {
-  font-size: 2rem;
-  font-weight: bold;
+  position: relative;
+  z-index: 2;
+  font-size: 60px;
+  font-weight: bolder;
 }
 
 h4 {
-  font-size: 1.1rem;
-  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+  font-size: 30px;
 }
 
 p {
-  font-size: 1rem;
-  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+}
+
+/* Optional Card hover effect for interactivity */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
 }

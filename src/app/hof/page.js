@@ -1,6 +1,6 @@
 "use client"; // Mark as a client-side component
-import NavBar from "@/components/NavBar";
 import React, { useState, useEffect } from "react";
+import NavBar from "../../components/NavBar"; // Import the NavBar component
 
 const HallOfFame = () => {
   const [stats, setStats] = useState([]);
@@ -91,7 +91,7 @@ const HallOfFame = () => {
     return sortedStats.filter((stat) => stat[statKey] === highestValue);
   };
 
-  const topStats = {
+  const allStats = {
     firstPlaceFinishes: getTopStats("firstPlaceFinishes"),
     allTimeMostWins: getTopStats("allTimeMostWins"),
     allTimeMostWinsInSeason: getTopStats("allTimeMostWinsInSeason"),
@@ -99,9 +99,6 @@ const HallOfFame = () => {
     mostPointsScoredInSeason: getTopStats("mostPointsScoredInSeason"),
     allTimeAveragePointsScored: getTopStats("allTimeAveragePointsScored"),
     highestAveragePointsInSeason: getTopStats("highestAveragePointsInSeason"),
-  };
-
-  const notGoodStats = {
     lastPlaceFinishes: getTopStats("lastPlaceFinishes"),
     leastPointsScoredInSeason: getTopStats("leastPointsScoredInSeason"),
     allTimeMostLossesInSeason: getTopStats("allTimeMostLossesInSeason"),
@@ -148,53 +145,53 @@ const HallOfFame = () => {
     return num.toLocaleString();
   };
 
-  return (
-    <div>
-      <NavBar /> {/* NavBar at the top */}
-      <div className="hof-container">
-        <h1 className="text-center">Hall of Fame</h1>
+ return (
+   <div>
+     <NavBar /> {/* Add the NavBar component */}
+     {/* Hall of Fame Header Section */}
+     <div className="hof-container">
+       <div className="halloffame">Hall of Fame</div>
 
-        {/* Combined Records Section (Good and Bad Stats) */}
-        <div className="records-section">
-          <div className="card-row">
-            {/* Display all records (good + bad) */}
-            {[...Object.keys(topStats), ...Object.keys(notGoodStats)].map(
-              (statKey) => {
-                const owners = topStats[statKey] || notGoodStats[statKey]; // Combine good and bad stats
-                const displayName = statLabelMapping[statKey] || statKey; // Use custom label mapping
+       {/* Display all stats in a single section */}
+       <div className="card-row">
+         {Object.keys(allStats).map((statKey) => {
+           const owners = allStats[statKey];
+           const displayName = statLabelMapping[statKey] || statKey;
 
-                return (
-                  <div key={statKey} className="card">
-                    <div className="card-icon">
-                      {/* Use static image URL based on stat */}
-                      <img
-                        src={statImageMapping[statKey]} // Get image URL from the mapping
-                        alt={statKey}
-                        className="card-img"
-                      />
-                    </div>
-                    <h3 className="stat-value">
-                      {formatNumber(owners[0][statKey])}
-                    </h3>{" "}
-                    {/* Display the stat value at the top */}
-                    <h4>{displayName}</h4> {/* Display the stat name */}
-                    <p>
-                      {owners.map((stat, index) => (
-                        <span key={index}>
-                          {stat.owner}
-                          {index < owners.length - 1 ? ", " : ""}
-                        </span>
-                      ))}
-                    </p>
-                  </div>
-                );
-              }
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+           return (
+             <div
+               key={statKey}
+               className="card"
+               style={{
+                 backgroundImage: `url(${statImageMapping[statKey]})`,
+                 backgroundSize: "cover", // Ensure the image doesn't stretch out of proportions
+                 backgroundPosition: "center center", // Center the image
+                 position: "relative", // To allow the overlay to be placed above the image
+               }}
+             >
+               {/* Overlay for better text readability */}
+               <div className="card-overlay"></div>
+
+               <h3 className="stat-value">
+                 {formatNumber(owners[0][statKey])}
+               </h3>
+               <h4>{displayName}</h4>
+               <p>
+                 {owners.map((stat, index) => (
+                   <span key={index}>
+                     {stat.owner}
+                     {index < owners.length - 1 ? ", " : ""}
+                   </span>
+                 ))}
+               </p>
+             </div>
+           );
+         })}
+       </div>
+     </div>
+   </div>
+ );
+;
 
 };
 

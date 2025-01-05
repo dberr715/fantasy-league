@@ -65,43 +65,34 @@ const StatsPage = () => {
               className="w-16 h-16"
             />
           </div>
-          <p className="text-sm font-semibold text-center">
-            {topFinishers[0]?.teamName}
-          </p>
-          <p className="text-sm text-center">{topFinishers[0]?.owner}</p>
+          <p className="team-name">{topFinishers[0]?.teamName}</p>
+          <p className="owner">{topFinishers[0]?.owner}</p>
         </div>
 
-        {/* 2nd and 3rd Place */}
-        <div className="flex sm:space-x-6 w-full justify-center sm:justify-start">
-          {/* 2nd Place */}
-          <div className="podium-item">
-            <div className="trophy">
-              <img
-                src="/images/trophy.png" // Local trophy image for 2nd place
-                alt="2nd place trophy"
-                className="w-16 h-16"
-              />
-            </div>
-            <p className="text-sm font-semibold text-center">
-              {topFinishers[1]?.teamName}
-            </p>
-            <p className="text-sm text-center">{topFinishers[1]?.owner}</p>
+        {/* 2nd Place */}
+        <div className="podium-item">
+          <div className="trophy trophy-2nd">
+            <img
+              src="/images/trophy.png" // Local trophy image for 2nd place
+              alt="2nd place trophy"
+              className="w-16 h-16"
+            />
           </div>
+          <p className="team-name">{topFinishers[1]?.teamName}</p>
+          <p className="owner">{topFinishers[1]?.owner}</p>
+        </div>
 
-          {/* 3rd Place */}
-          <div className="podium-item">
-            <div className="trophy">
-              <img
-                src="/images/trophy.png" // Local trophy image for 3rd place
-                alt="3rd place trophy"
-                className="w-16 h-16"
-              />
-            </div>
-            <p className="text-sm font-semibold text-center">
-              {topFinishers[2]?.teamName}
-            </p>
-            <p className="text-sm text-center">{topFinishers[2]?.owner}</p>
+        {/* 3rd Place */}
+        <div className="podium-item">
+          <div className="trophy trophy-3rd">
+            <img
+              src="/images/trophy.png" // Local trophy image for 3rd place
+              alt="3rd place trophy"
+              className="w-16 h-16"
+            />
           </div>
+          <p className="team-name">{topFinishers[2]?.teamName}</p>
+          <p className="owner">{topFinishers[2]?.owner}</p>
         </div>
       </div>
 
@@ -154,7 +145,7 @@ const StatsPage = () => {
       </div>
 
       {/* Individual Stats Header */}
-      <h2 className="text-xl font-semibold mb-4 text-center">
+      <h2 className="text-xl font-semibold mb-4 text-center individualstats">
         Select Individual Season Statistics
       </h2>
 

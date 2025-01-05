@@ -132,12 +132,92 @@ body {
   }
 }
 
+
+/* Individual Stats Card Styles */
+.individualstats {
+  padding-top: 30px;
+}
+
+.individual-stats-card {
+  background-color: #2e2e2e; /* Dark background */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+  width: 90%; /* Full width on mobile */
+  max-width: 350px; /* Maximum width for mobile */
+  margin: 20px auto; /* Center the card */
+}
+
+.individual-stats-card p {
+  font-size: 1rem; /* Base text size */
+  margin: 10px 0;
+}
+
+.individual-stats-card .text-lg {
+  font-size: 1.2rem; /* Adjust text size for large text */
+}
+
+.individual-stats-card .text-xl {
+  font-size: 1.5rem; /* Increase text size for larger headers */
+}
+
+.individual-stats-card .font-semibold {
+  font-weight: 600; /* Make text semi-bold */
+}
+
+/* Make card and text larger for desktop */
+@media (min-width: 768px) {
+  .individual-stats-card {
+    width: 60%; /* Make the card wider on desktop */
+    max-width: 600px; /* Maximum width for desktop */
+  }
+
+  .individual-stats-card .text-lg {
+    font-size: 1.5rem; /* Larger text for desktop */
+  }
+
+  .individual-stats-card .text-xl {
+    font-size: 2rem; /* Larger text for desktop */
+  }
+
+  .individual-stats-card p {
+    font-size: 1.2rem; /* Increase base text size for desktop */
+  }
+}
+
+/* Style for the individual stats labels (e.g., Rank, Record) */
+.individual-stats-card .label {
+  font-size: 1rem;
+  color: #ffb338; /* Gold color for labels */
+  font-weight: 600;
+}
+
+/* Style for the values (e.g., points, rank) */
+.individual-stats-card .value {
+  font-size: 1.2rem;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+/* Style for blue highlighting (highest values) */
+.individual-stats-card .highlight {
+  color: #1e90ff; /* Blue color for highest stats */
+  font-weight: bold;
+}
+
+/* Style for negative values (red for negative points) */
+.individual-stats-card .negative {
+  color: #e63946; /* Red color for negative values */
+}
+
+/* Hall of Fame Header */
 /* Hall of Fame Header */
 .halloffame {
   font-family: 'Anton', sans-serif; /* Football-themed font */
   color: transparent; /* Set color to transparent to apply the 3D effect */
   text-align: center;
-  padding: 80px 0; /* Adjust padding for better spacing */
+  padding: 100px 0; /* Adjust padding for better spacing */
   font-size: 4rem; /* Large font size for emphasis */
   margin-bottom: 50px;
   letter-spacing: 5px; /* Add some letter spacing for better separation */
@@ -148,6 +228,7 @@ body {
   text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6), 0px 0px 10px rgba(255, 183, 56, 0.7); /* Add 3D shadow effect */
 }
 
+/* Background for Hall of Fame header */
 .halloffame .bg {
   position: absolute;
   top: 0;
@@ -160,9 +241,19 @@ body {
   z-index: -1;
 }
 
+/* Foreground for Hall of Fame header */
 .halloffame .fg {
   z-index: 1;
 }
+
+/* Responsive styling */
+@media (min-width: 768px) {
+  .halloffame {
+    font-size: 5rem; /* Increase font size for desktop */
+    padding: 120px 0; /* Adjust padding for larger screens */
+  }
+}
+
 
 /* Container for Hall of Fame */
 .hof-container {
@@ -387,6 +478,43 @@ select:focus {
 
 .individualstats{
   padding-top: 30px;
+  font-size: 35px;
+}
+
+/* Season Dropdown Container */
+.season-dropdown-container {
+  display: flex;
+  flex-direction: column; /* Stack label and select vertically */
+  align-items: center;
+  gap: 10px; /* Space between the label and dropdown */
+}
+
+/* Label Style */
+.season-label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ffb338; /* Gold color for the label */
+  margin-bottom: 5px; /* Space between label and dropdown */
+}
+
+/* Select Dropdown Styles */
+.select-season {
+  background-color: #2e2e2e; /* Dark background for consistency */
+  color: #ffb338; /* Gold text color */
+  font-size: 1rem; /* Medium font size */
+  padding: 10px 15px; /* Padding for better touch interaction */
+  border: 2px solid #3e2904; /* Dark border color to match the theme */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  width: 200px; /* Set width to prevent it from being too wide */
+  appearance: none; /* Remove default dropdown arrow */
+  outline: none; /* Remove outline */
+  transition: all 0.3s ease; /* Smooth transition for hover and focus */
+}
+
+/* Focus effect for the dropdown */
+.select-season:focus {
+  border-color: #ffb338; /* Change border color to gold when focused */
+  box-shadow: 0px 0px 8px rgba(255, 183, 56, 0.7); /* Glow effect when focused */
 }
 
 /* Style for the select owner dropdown on larger screens */

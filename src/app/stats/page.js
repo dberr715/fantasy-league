@@ -98,8 +98,13 @@ const StatsPage = () => {
         </div>
 
         {/* Season Dropdown */}
-        <div className="text-center mb-4">
+        {/* Season Dropdown */}
+        <div className="season-dropdown-container text-center mb-4">
+          <label htmlFor="season-select" className="season-label">
+            Select Season
+          </label>
           <select
+            id="season-select"
             value={selectedSeason}
             onChange={handleSeasonChange}
             className="select-season"
@@ -167,19 +172,20 @@ const StatsPage = () => {
         </div>
 
         {/* Display Selected Owner Stats */}
+        {/* Display Selected Owner Stats */}
         {selectedOwnerStats ? (
-          <div className="flex flex-col items-center m-4 bg-gray-800 text-white p-6 rounded-lg shadow-lg w-80 mx-auto">
+          <div className="individual-stats-card">
             <p className="text-xl font-semibold">{selectedOwnerStats.owner}</p>
             <div className="flex justify-between w-full mb-2">
-              <p className="text-lg font-semibold">Rank</p>
-              <p className="text-lg">{selectedOwnerStats.rank}</p>
+              <p className="label">Rank</p>
+              <p className="value">{selectedOwnerStats.rank}</p>
             </div>
             <div className="flex justify-between w-full mb-2">
-              <p className="text-lg font-semibold">Record</p>
+              <p className="label">Record</p>
               <p
-                className={`text-lg ${
+                className={`value ${
                   selectedOwnerStats.wins === highestPointsFor
-                    ? "font-bold text-blue-500"
+                    ? "highlight"
                     : ""
                 }`}
               >
@@ -187,11 +193,11 @@ const StatsPage = () => {
               </p>
             </div>
             <div className="flex justify-between w-full mb-2">
-              <p className="text-lg font-semibold">Points For</p>
+              <p className="label">Points For</p>
               <p
-                className={`text-lg ${
+                className={`value ${
                   selectedOwnerStats.pointsFor === highestPointsFor
-                    ? "font-bold text-blue-500"
+                    ? "highlight"
                     : ""
                 }`}
               >
@@ -199,11 +205,11 @@ const StatsPage = () => {
               </p>
             </div>
             <div className="flex justify-between w-full mb-2">
-              <p className="text-lg font-semibold">Points Against</p>
+              <p className="label">Points Against</p>
               <p
-                className={`text-lg ${
+                className={`value ${
                   selectedOwnerStats.pointsAgainst === highestPointsAgainst
-                    ? "font-bold text-blue-500"
+                    ? "highlight"
                     : ""
                 }`}
               >
@@ -211,11 +217,11 @@ const StatsPage = () => {
               </p>
             </div>
             <div className="flex justify-between w-full mb-2">
-              <p className="text-lg font-semibold">Points Per Game</p>
+              <p className="label">Points Per Game</p>
               <p
-                className={`text-lg ${
+                className={`value ${
                   selectedOwnerStats.pointsForPerGame === highestPointsPerGame
-                    ? "font-bold text-blue-500"
+                    ? "highlight"
                     : ""
                 }`}
               >
@@ -223,31 +229,27 @@ const StatsPage = () => {
               </p>
             </div>
             <div className="flex justify-between w-full">
-              <p className="text-lg font-semibold">Points Difference</p>
+              <p className="label">Points Difference</p>
               <p
-                className={`text-lg ${
+                className={`value ${
                   selectedOwnerStats.pointsDifference ===
                   highestPointsDifference
-                    ? "font-bold text-blue-500"
+                    ? "highlight"
                     : ""
                 } ${
-                  selectedOwnerStats.pointsDifference >= 0
-                    ? "text-green-500"
-                    : "text-red-500"
+                  selectedOwnerStats.pointsDifference >= 0 ? "" : "negative"
                 }`}
               >
                 {selectedOwnerStats.pointsDifference.toFixed(2)}
               </p>
             </div>
-
-            {/* Note about Blue Font */}
             <p className="text-xs text-center mt-4 text-blue-500">
               *Blue font indicates the highest value in the league for that
               stat.
             </p>
           </div>
         ) : (
-          <div className="flex flex-col items-center m-4 bg-gray-800 text-white p-6 rounded-lg shadow-lg w-80 mx-auto">
+          <div className="individual-stats-card">
             <p className="text-xl font-semibold">
               Select a season owner to see stats
             </p>

@@ -53,6 +53,85 @@ body {
   margin-top: 40px; /* Adjust this if you want more spacing from the top */
 }
 
+/* Podium Styles */
+.podium {
+  display: flex;
+  flex-direction: column; /* Stack items on mobile */
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+
+.trophy {
+  width: 50px;
+  height: 50px;
+  background-color: #ffb338; /* Default for gold */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.trophy-2nd {
+  background-color: #c0c0c0; /* Silver for 2nd place */
+}
+
+.trophy-3rd {
+  background-color: #cd7f32; /* Bronze for 3rd place */
+}
+
+.podium-item p {
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  margin-top: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.podium-item p.team-name {
+  font-size: 0.9rem; /* Smaller font size for team name */
+}
+
+.podium-item p.owner {
+  font-size: 0.8rem; /* Smaller font size for owner */
+  color: #d1d1d1;
+}
+
+/* Responsive for Desktop */
+@media (min-width: 768px) {
+  .podium {
+    flex-direction: row; /* Align horizontally on desktop */
+    justify-content: center;
+  }
+
+  .podium-item {
+    margin: 0 20px;
+  }
+
+  .trophy {
+    width: 100px;
+    height: 100px; /* Larger trophies for desktop */
+  }
+
+  .podium-item p.team-name {
+    font-size: 1.2rem; /* Larger text for desktop */
+  }
+
+  .podium-item p.owner {
+    font-size: 1rem; /* Larger text for desktop */
+  }
+}
+
 /* Hall of Fame Header */
 .halloffame {
   font-family: 'Anton', sans-serif; /* Football-themed font */
@@ -226,61 +305,50 @@ p {
   letter-spacing: 2px;
 }
 
-/* Podium Styles */
-.podium {
-  display: flex;
-  flex-direction: column; /* Stack items on mobile */
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 40px;
+/* Table Styling */
+.table-wrapper {
+  margin-top: 20px;
 }
 
-.podium-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 150px;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background-color: #1c1c1c;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.trophy {
-  width: 50px;
-  height: 50px;
-  background-color: #ffb338; /* Default for gold */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.trophy-2nd {
-  background-color: #c0c0c0; /* Silver for 2nd place */
-}
-
-.trophy-3rd {
-  background-color: #cd7f32; /* Bronze for 3rd place */
-}
-
-.podium-item p {
+th, td {
+  padding: 12px;
   text-align: center;
-  font-size: 14px;
-  color: #fff;
-  margin-top: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  border-bottom: 1px solid #3e2904; /* Darker border color */
 }
 
-.podium-item p.team-name {
-  font-size: 0.9rem; /* Smaller font size for team name */
+th {
+  background-color: #2e2e2e;
+  color: #ffb338;
+  font-size: 1.2rem;
 }
 
-.podium-item p.owner {
-  font-size: 0.8rem; /* Smaller font size for owner */
-  color: #d1d1d1;
+td {
+  background-color: #2e2e2e;
+  font-size: 1rem;
 }
 
-/* Style for Select Dropdown */
+tr:hover {
+  background-color: #3e2904; /* Darker hover effect */
+}
+
+tr:nth-child(odd) {
+  background-color: #3e2904; /* Alternating row color */
+}
+
+tr:nth-child(even) {
+  background-color: #2e2e2e; /* Alternating row color */
+}
+
 select {
   background-color: #2e2e2e; /* Dark background for consistency */
   color: #ffb338; /* Gold text color */

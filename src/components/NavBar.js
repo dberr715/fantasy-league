@@ -1,4 +1,3 @@
-// src/components/NavBar.js
 "use client";
 
 import Link from "next/link";
@@ -35,8 +34,9 @@ const NavBar = () => {
 
 const styles = {
   nav: {
-    backgroundColor: "#333",
-    padding: "10px 20px",
+    backgroundColor: "#171717", // Dark background matching the theme
+    padding: "20px 30px", // Adjust padding for better spacing
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)", // Optional shadow for depth
   },
   navList: {
     display: "flex",
@@ -45,12 +45,19 @@ const styles = {
     padding: 0,
   },
   navItem: {
-    marginRight: "20px",
+    marginRight: "30px", // Increase spacing between items
   },
   navLink: {
-    color: "#fff",
+    color: "#ffb338", // Gold color for the links
     textDecoration: "none",
-    fontSize: "16px",
+    fontSize: "18px", // Slightly larger font size
+    fontWeight: "bold", // Make text bold
+    textTransform: "uppercase", // Make links uppercase
+    transition: "color 0.3s ease, text-shadow 0.3s ease", // Smooth hover transition
+  },
+  navLinkHover: {
+    color: "#e1c107", // Lighter gold color for hover effect
+    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)", // Subtle glow effect on hover
   },
 };
 

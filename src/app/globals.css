@@ -173,6 +173,137 @@ p {
   color: #d1d1d1;
 }
 
+
+/* Tailwind Setup for default styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: black;
+  background: rgba(0, 0, 0, 0.131);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.stats-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #1c1c1c;
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ffb338; /* Gold color */
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 2px;
+}
+
+.podium {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.podium-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+
+.trophy {
+  width: 50px;
+  height: 50px;
+  background-color: #ffb338;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.select-season,
+.select-owner {
+  margin-top: 20px;
+  width: 200px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #3e2904;
+  background-color: #272727;
+  color: #e1c107;
+}
+
+.table-wrapper {
+  
+  margin-top: 30px;
+}
+
+table {
+  min-width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background-color: #272727;
+  color: #fff;
+  border-radius: 10px;
+}
+
+table th,
+table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #3e2904;
+}
+
+.table-header {
+  background-color: #ffb338;
+  color: #171717;
+}
+
+.card {
+  background-color: #3e2904;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-info {
+  font-size: 1rem;
+  color: #d1d1d1;
+}
+
+.card-info span {
+  font-weight: bold;
+  color: #ffb338;
+}
+
+
 @media (max-width: 768px) {
   .rule-item {
     flex-direction: column;

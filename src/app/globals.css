@@ -38,7 +38,7 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  background-image: url("/path/to/your/image.jpg"); /* Replace with your image path */
+  
 }
 
 /* Stats Container */
@@ -132,7 +132,6 @@ body {
   }
 }
 
-
 /* Individual Stats Card Styles */
 .individualstats {
   padding-top: 30px;
@@ -212,7 +211,6 @@ body {
 }
 
 /* Hall of Fame Header */
-/* Hall of Fame Header */
 .halloffame {
   font-family: 'Anton', sans-serif; /* Football-themed font */
   color: transparent; /* Set color to transparent to apply the 3D effect */
@@ -253,7 +251,6 @@ body {
     padding: 120px 0; /* Adjust padding for larger screens */
   }
 }
-
 
 /* Container for Hall of Fame */
 .hof-container {
@@ -517,35 +514,142 @@ select:focus {
   box-shadow: 0px 0px 8px rgba(255, 183, 56, 0.7); /* Glow effect when focused */
 }
 
-/* Style for the select owner dropdown on larger screens */
-@media (min-width: 768px) {
-  .select-season, .select-owner {
-    width: 250px; /* Make dropdowns slightly wider on desktop */
+
+/* General body styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Dark background for readability */
+  color: #F2F2F2; /* Light text color */
+}
+
+/* Hero section */
+/* Tailwind Setup for default styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.text-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f5eeee;
+}
+
+.text-section p {
+  font-size: 1.125rem;
+  color: #efe9e9;
+}
+
+.logo-section img {
+  width: 80%;
+  max-width: 300px;
+  object-fit: contain;
+}
+
+/* Poll Section */
+.poll-section {
+  background-color: #333;
+  color: white;
+  padding: 4rem 2rem;
+}
+
+.poll-section h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+
+  .text-section h2 {
+    font-size: 1.75rem;
+  }
+
+  .text-section p {
+    font-size: 1rem;
+  }
+
+  .logo-section img {
+    width: 90%;
   }
 }
 
 
-/* Responsive for Desktop */
+
+
+
+
+/* Make the image responsive */
+
+
+/* Poll section */
+.poll-section {
+  padding: 4rem 2rem;
+  background-color: #1E1E1E; /* Dark background */
+}
+
+.poll-section h2 {
+  font-size: 2rem;
+  color: #FFD700; /* Gold color to match the theme */
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+}
+
+/* Additional styling for buttons and form elements */
+button {
+  background-color: #FFD700;
+  color: #121212;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #FFA500;
+}
+
+/* Style for the select owner dropdown on larger screens */
 @media (min-width: 768px) {
-  .podium {
-    flex-direction: row; /* Align horizontally on desktop */
-    justify-content: center;
-  }
-
-  .podium-item {
-    margin: 0 20px;
-  }
-
-  .trophy {
-    width: 100px;
-    height: 100px;
-  }
-
-  .podium-item p.team-name {
-    font-size: 1.2rem; /* Larger text for desktop */
-  }
-
-  .podium-item p.owner {
-    font-size: 1rem; /* Larger text for desktop */
+  .select-season, .select-owner {
+    width: 250px; /* Make dropdowns slightly wider on desktop */
   }
 }

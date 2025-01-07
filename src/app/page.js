@@ -1,44 +1,57 @@
 "use client";
 
+import NavBar from "@/components/NavBar";
+
 const Home = () => {
   return (
-    <div className="bg-gray-100 text-gray-900">
-      {/* Hero Section */}
-      <section className="relative w-full h-screen bg-blue-500 flex items-center justify-center text-center text-white">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url("/your-logo-image.jpg")' }}
-        ></div>
-        <div className="relative z-10 px-6 py-12">
-          <p className="text-xl mb-6">
-            League members, participate in the poll below!
-          </p>
-        </div>
-      </section>
-
-      {/* Poll Section */}
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8">
-            Choose what future months likely will work for you for a MLK style
-            get together?
-          </h2>
-
-          {/* Embed Google Form */}
-          <div className="w-full">
-            <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLSeB-OPAOhPvSPwT5uLSpsH8mT0-cjSy7-1YD9u79njaAsJonw/viewform?embedded=true"
-              width="640"
-              height="1018"
-              frameborder="0"
-              marginheight="0"
-              marginwidth="0"
-            >
-              Loading…
-            </iframe>
+    <div>
+      <NavBar />
+      <div className="bg-black-100 text-gray-900">
+        {/* Hero Section */}
+        <section className="hero-section flex flex-col md:flex-row items-center justify-between px-8 py-16">
+          <div className="text-section flex-1 text-white">
+            {" "}
+            {/* Ensure text is white */}
+            <h2 className="text-3xl font-bold mb-4 text-white">
+              Celebrating 10 Years of Play
+            </h2>
+            <p className="text-lg mb-4 text-white">
+              Based in South Carolina, we’ve been bringing the community
+              together through fantasy football for a decade.
+            </p>
           </div>
-        </div>
-      </section>
+          <div className="logo-section flex-1 flex justify-center">
+            <img
+              src="/images/cgl1.webp" // Your uploaded logo
+              alt="League Logo"
+              className="w-80 h-auto object-contain"
+            />
+          </div>
+        </section>
+
+        {/* Poll Section */}
+        <section className="poll-section py-16 bg-gray-800 text-white">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-8 text-white">
+              League members, participate in the poll below!
+            </h2>
+
+            {/* Embed Google Form */}
+            <div className="w-full">
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeB-OPAOhPvSPwT5uLSpsH8mT0-cjSy7-1YD9u79njaAsJonw/viewform?embedded=true"
+                width="640"
+                height="1018"
+                frameBorder="0"
+                marginHeight="0"
+                marginWidth="0"
+              >
+                Loading…
+              </iframe>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
